@@ -1,8 +1,8 @@
 import "./style.css";
-import { initApp } from "./controller/controller.js";
-import { initView } from "./view/view.js";
+import { initApp, initView } from "./controller/controller.js";
 
 
 
+console.log("index.js loaded");
 initApp();
 initView();

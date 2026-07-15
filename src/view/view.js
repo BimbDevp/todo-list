@@ -1,5 +1,4 @@
 import { getProjects, getTasks } from "../model/appState.js";
-import { handleAddTask } from "../controller/controller.js";
 
 export function renderProject() {
     const sideBar = document.querySelector(".sidebar");
@@ -15,8 +14,11 @@ export function renderProject() {
 }
 
 export function renderTask() {
+    console.log("rendertask dipanggil")
     const mainContent = document.querySelector(".main-content");
+    console.log("mainContent:", mainContent);
     const task = getTasks();
+    console.log("tasks:", task);
     mainContent.innerHTML = "";
     task.forEach(item => {
         const wraper = document.createElement("div");
@@ -62,15 +64,6 @@ const isCompleted = document.querySelector("#is-completed");
 const submitBtn = document.querySelector("form button")
 const createTaskBtn = document.querySelector(".create-task");
 
-export function initView() {
-    createTaskBtn.addEventListener("click", () => {
-        dialog.showModal();
-    });
 
-    submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked)
 
-        dialog.close();
-    });
-}
+export { dialog, title, desc, dueDate, priority, isCompleted, submitBtn, createTaskBtn };
