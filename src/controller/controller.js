@@ -1,7 +1,8 @@
-import createTask from "../model/task";
-import createProject from "../model/project";
-import { saveData, loadData } from "../model/storage";
-import { getProjects, getTasks, addProject, addTask, deleteTask } from "../model/appState";
+import createTask from "../model/task.js";
+import createProject from "../model/project.js";
+import { saveData, loadData } from "../model/storage.js";
+import { getProjects, getTasks, addProject, addTask, deleteTask } from "../model/appState.js";
+import { renderProject } from "../view/view.js";
 
 
 
@@ -15,6 +16,8 @@ export function initApp() {
     } else {
         addProject(defaultProject);
     }
+
+    renderProject();
 }
 
 export function handleAddTask(title, desc, dueDate, priority) {
@@ -22,3 +25,4 @@ export function handleAddTask(title, desc, dueDate, priority) {
     addTask(newTask);
     saveData("task", getTasks());
 }
+
