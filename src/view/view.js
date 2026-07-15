@@ -1,4 +1,5 @@
 import { getProjects, getTasks } from "../model/appState.js";
+import { handleAddTask } from "../controller/controller.js";
 
 export function renderProject() {
     const sideBar = document.querySelector(".sidebar");
@@ -49,4 +50,27 @@ export function renderTask() {
         mainContent.appendChild(wraper);
 
     })
+}
+
+
+const dialog = document.querySelector("dialog");
+const title = document.querySelector("#title")
+const desc = document.querySelector("#desc");
+const dueDate = document.querySelector("#due-date");
+const priority = document.querySelector("#priority")
+const isCompleted = document.querySelector("#is-completed");
+const submitBtn = document.querySelector("form button")
+const createTaskBtn = document.querySelector(".create-task");
+
+export function initView() {
+    createTaskBtn.addEventListener("click", () => {
+        dialog.showModal();
+    });
+
+    submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked)
+
+        dialog.close();
+    });
 }

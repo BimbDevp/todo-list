@@ -23,6 +23,7 @@ export function initApp() {
 export function handleAddTask(title, desc, dueDate, priority) {
     const newTask = createTask(title, desc, dueDate, priority);
     addTask(newTask);
+    console.log(getTasks());
     saveData("task", getTasks());
 
     renderTask();
