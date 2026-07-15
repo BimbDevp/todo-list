@@ -5,7 +5,7 @@ import { getProjects, getTasks, addProject, addTask, deleteTask } from "../model
 
 
 
-function initApp() {
+export function initApp() {
     const load = loadData("projects");
     const defaultProject = createProject("Default", "blue");
     if (load) {
@@ -15,4 +15,10 @@ function initApp() {
     } else {
         addProject(defaultProject);
     }
+}
+
+export function handleAddTask(title, desc, dueDate, priority) {
+    const newTask = createTask(title, desc, dueDate, priority);
+    addTask(newTask);
+    saveData("task", getTasks());
 }
