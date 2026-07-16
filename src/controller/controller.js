@@ -2,7 +2,7 @@ import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
 import { getProjects, getTasks, addProject, addTask, deleteTask } from "../model/appState.js";
-import { renderProject, renderTask, dialog, title, desc, dueDate, priority, isCompleted, submitBtn, createTaskBtn, mainContent } from "../view/view.js"
+import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color } from "../view/view.js"
 
 
 
@@ -45,14 +45,14 @@ export function handleAddProject(title, color){
 
 export function bindEvents() {
     createTaskBtn.addEventListener("click", () => {
-        dialog.showModal();
+        taskDialog.showModal();
     });
 
-    submitBtn.addEventListener("click", (e) => {
+    taskSubmit.addEventListener("click", (e) => {
         e.preventDefault();
         handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked)
 
-        dialog.close();
+        taskDialog.close();
     });
 
     mainContent.addEventListener("click", (e) => {
@@ -60,6 +60,17 @@ export function bindEvents() {
         const id = e.target.dataset.id;
         handleDeleteTask(id);
     });
+
+    createProjectBtn.addEventListener("click", () => {
+        projectDialog.showModal();
+    })
+
+    projectSubmit.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleAddProject(projectTitle.value, color.value);
+
+        projectDialog.close();
+    })
 }
 
 

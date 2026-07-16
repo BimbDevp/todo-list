@@ -60,15 +60,20 @@ export function renderTask() {
 }
 
 const mainContent = document.querySelector(".main-content");
-const dialog = document.querySelector("dialog");
+const taskDialog = document.querySelector(".task-dialog");
 const title = document.querySelector("#title")
 const desc = document.querySelector("#desc");
 const dueDate = document.querySelector("#due-date");
 const priority = document.querySelector("#priority")
 const isCompleted = document.querySelector("#is-completed");
-const submitBtn = document.querySelector("form button")
+const taskSubmit = document.querySelector(".task-submit")
 const createTaskBtn = document.querySelector(".create-task");
+const projectDialog = document.querySelector(".project-dialog");
+const projectTitle = document.querySelector("#project-title");
+const color = document.querySelector("#color");
+const projectSubmit = document.querySelector(".project-submit");
+const createProjectBtn = document.querySelector(".create-project");
 
 
 
-export { dialog, title, desc, dueDate, priority, isCompleted, submitBtn, createTaskBtn, mainContent };
+export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn };
