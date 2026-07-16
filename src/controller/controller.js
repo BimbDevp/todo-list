@@ -35,6 +35,14 @@ export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
     renderTask();
 }
 
+export function handleAddProject(title, color){
+    const newProject = createProject(title, color);
+    addProject(newProject);
+    saveData("projects", getProjects());
+
+    renderProject();
+}
+
 export function bindEvents() {
     createTaskBtn.addEventListener("click", () => {
         dialog.showModal();
