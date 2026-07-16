@@ -13,12 +13,10 @@ export function renderProject() {
 
 }
 
+
+ 
 export function renderTask() {
-    console.log("rendertask dipanggil")
-    const mainContent = document.querySelector(".main-content");
-    console.log("mainContent:", mainContent);
     const task = getTasks();
-    console.log("tasks:", task);
     mainContent.innerHTML = "";
     task.forEach(item => {
         const wraper = document.createElement("div");
@@ -38,6 +36,12 @@ export function renderTask() {
         isCompleted.textContent = item.isCompleted;
         const createdAt = document.createElement("p");
         createdAt.textContent = item.createdAt;
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.dataset.id = item.id;
+        deleteBtn.classList.add("delete-btn");
+
+
 
 
         wraper.appendChild(title);
@@ -48,13 +52,14 @@ export function renderTask() {
         wraper.appendChild(priority);
         wraper.appendChild(isCompleted);
         wraper.appendChild(createdAt);
+        wraper.appendChild(deleteBtn);
 
         mainContent.appendChild(wraper);
 
     })
 }
 
-
+const mainContent = document.querySelector(".main-content");
 const dialog = document.querySelector("dialog");
 const title = document.querySelector("#title")
 const desc = document.querySelector("#desc");
@@ -66,4 +71,4 @@ const createTaskBtn = document.querySelector(".create-task");
 
 
 
-export { dialog, title, desc, dueDate, priority, isCompleted, submitBtn, createTaskBtn };
+export { dialog, title, desc, dueDate, priority, isCompleted, submitBtn, createTaskBtn, mainContent };

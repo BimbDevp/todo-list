@@ -1,8 +1,7 @@
 import "./style.css";
-import { initApp, initView } from "./controller/controller.js";
+import { initApp, bindEvents} from "./controller/controller.js";
 
 
 
-console.log("index.js loaded");
 initApp();
-initView();
+bindEvents();
