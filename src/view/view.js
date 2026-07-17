@@ -1,14 +1,24 @@
-import { getProjects, getTasks } from "../model/appState.js";
+import { getProjects, getTasks, getActiveProject} from "../model/appState.js";
 
 export function renderProject() {
-    const sideBar = document.querySelector(".sidebar");
     const projects = getProjects();
     sideBar.innerHTML= "";
     projects.forEach(item => {
-        const project = document.createElement("div");
-        project.textContent = item.title;
+        const projectWrapper = document.createElement("div");
+        
+        const title = document.createElement("h2");
+        title.textContent = item.title;
+        title.classList.add("project-title");
+        title.dataset.id = item.id;
+        const projectDeleteBtn = document.createElement("button");
+        projectDeleteBtn.textContent = "Delete project";
+        projectDeleteBtn.classList.add("project-delete");
+        projectDeleteBtn.dataset.id = item.id;
 
-        sideBar.appendChild(project)
+        projectWrapper.appendChild(title);
+        projectWrapper.appendChild(projectDeleteBtn);
+
+        sideBar.appendChild(projectWrapper);
     })    
 
 }
@@ -16,8 +26,15 @@ export function renderProject() {
 
  
 export function renderTask() {
-    const task = getTasks();
+    const activeProject = getActiveProject();
+    const allTask = getTasks();
+
+    const task = activeProject 
+        ? allTask.filter(item => item.projectId === activeProject.id)
+        : allTask;
     mainContent.innerHTML = "";
+    
+
     task.forEach(item => {
         const wraper = document.createElement("div");
         const title = document.createElement("h3")
@@ -60,6 +77,7 @@ export function renderTask() {
 }
 
 const mainContent = document.querySelector(".main-content");
+const sideBar = document.querySelector(".sidebar");
 const taskDialog = document.querySelector(".task-dialog");
 const title = document.querySelector("#title")
 const desc = document.querySelector("#desc");
@@ -76,4 +94,4 @@ const createProjectBtn = document.querySelector(".create-project");
 
 
 
-export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn };
+export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn, sideBar };
