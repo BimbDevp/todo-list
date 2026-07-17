@@ -43,6 +43,7 @@ export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
 export function handleAddProject(title, color){
     const newProject = createProject(title, color);
     addProject(newProject);
+    setActiveProject(newProject);
     saveData("projects", getProjects());
 
     renderProject();
