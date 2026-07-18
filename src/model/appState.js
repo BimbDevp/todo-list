@@ -1,3 +1,5 @@
+import { isCompleted, taskSubmit } from "../view/view";
+
 let projects = [];
 let tasks = [];
 
@@ -43,6 +45,8 @@ export function getActiveProject() {
     return activeProject;
 }
 
-export function editTask() {
+export function toggleComplete(id) {
+    const target = tasks.find(item => item.id === id);
 
+    return target.isCompleted = !target.isCompleted;
 }
