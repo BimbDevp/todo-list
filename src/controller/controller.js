@@ -10,13 +10,15 @@ import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted,
 export function initApp() {
     const loadProject = loadData("projects");
     const defaultProject = createProject("Default", "blue");
+    defaultProject.isDefault = true;
     const loadTask = loadData("tasks");
-    if (loadProject) {
+    if (loadProject && loadProject.length > 0) {
         loadProject.forEach(item => {
             addProject(item);
         })
     } else {
         addProject(defaultProject);
+        
         saveData("projects", getProjects())
     }
 
@@ -28,6 +30,7 @@ export function initApp() {
     }
 
     renderProject();
+    console.log(defaultProject);
 }
 
 export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
@@ -106,6 +109,7 @@ export function handleDeleteTask(id) {
 
 export function handleDeleteProject(id) {
     deleteProject(id);
-    saveData("projects", getProjects())
+    saveData("projects", getProjects());
+    saveData("tasks", getTasks());
     renderProject();
 }

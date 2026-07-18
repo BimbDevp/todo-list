@@ -23,8 +23,14 @@ export function deleteTask(id) {
 }
 
 export function deleteProject(id) {
+    const projectDefault = projects.find(item => item.id === id);
+    
+    if (projectDefault.isDefault === true) return;
+
     projects = projects.filter(item => item.id !== id);
     tasks = tasks.filter(item => item.projectId !== id);
+
+    setActiveProject(getProjects()[0]);
 }
 
 let activeProject = null;
@@ -35,4 +41,8 @@ export function setActiveProject(project) {
 
 export function getActiveProject() {
     return activeProject;
+}
+
+export function editTask() {
+
 }

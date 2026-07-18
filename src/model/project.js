@@ -4,5 +4,6 @@ export default function createProject(title, color){
         title: title,
         color: color,
         createdAt: new Date(),
+        isDefault: false,
     };
 }
