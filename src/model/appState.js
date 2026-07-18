@@ -23,7 +23,7 @@ export function deleteTask(id) {
 }
 
 export function deleteProject(id) {
-    const projectDefault = projects.find(item => item.id === id);
+    const targetProject = projects.find(item => item.id === id);
     
     if (projectDefault.isDefault === true) return;
 
