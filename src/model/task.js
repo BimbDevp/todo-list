@@ -9,7 +9,7 @@ export default function createTask(title, desc, dueDate, priority, isCompleted) 
     dueDate: dueDate,
     priority: priority,
     isCompleted: isCompleted,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
    };
 }
 

@@ -1,7 +1,7 @@
 import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
-import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete, editTask, tasks } from "../model/appState.js";
+import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete, editTask } from "../model/appState.js";
 import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm} from "../view/view.js"
 
 
@@ -159,7 +159,7 @@ export function handleEditTask(id, updateFields) {
 let editingTaskId = null;
 
 function openEditDialog(taskId) {
-    const task = tasks.find(item => item.id === taskId);
+    const task = getTasks().find(item => item.id === taskId);
     fillEditForm(task);
     editingTaskId = taskId;
     taskDialog.showModal();

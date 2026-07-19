@@ -1,4 +1,27 @@
 import { getProjects, getTasks, getActiveProject} from "../model/appState.js";
+import { format, differenceInDays, isPast } from "date-fns";
+
+export function formatCreatedAt(createdAtString) {
+    const createdAtObj = new Date(createdAtString);
+    const formatted = format(createdAtObj, "dd MMMM yyyy")
+
+    return formatted;
+}
+
+
+export function formatDueDate(dueDateString) {
+    const dueDateObj = new Date(dueDateString);
+    const formatted = format(dueDateObj, "dd MMMM yyyy")
+    const dayLeft = differenceInDays(dueDateObj, new Date());
+
+    if (isPast(dueDateObj)) {
+        return `${formatted} (${Math.abs(dayLeft)} days overdue)`;
+    } else if (dayLeft === 0) {
+        return `${formatted} (today)`;
+    } else {
+        return `${formatted} (${dayLeft} days to go)`
+    }
+}
 
 export function renderProject() {
     const projects = getProjects();
@@ -48,7 +71,7 @@ export function renderTask() {
         const desc = document.createElement("p");
         desc.textContent = item.desc;
         const dueDate = document.createElement("p");
-        dueDate.textContent = item.dueDate;
+        dueDate.textContent = formatDueDate(item.dueDate);
         const priority = document.createElement("p")
         priority.textContent = item.priority;
         const isCompleted = document.createElement("input");
@@ -62,7 +85,7 @@ export function renderTask() {
         isCompletedLabel.textContent = item.isCompleted ? "Completed" : "In progress"; 
         isCompletedLabel.htmlFor = item.id;
         const createdAt = document.createElement("p");
-        createdAt.textContent = item.createdAt;
+        createdAt.textContent = formatCreatedAt(item.createdAt);
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "Delete";
         deleteBtn.dataset.id = item.id;

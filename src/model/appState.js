@@ -1,5 +1,5 @@
 let projects = [];
- export let tasks = [];
+let tasks = [];
 
 
 export function getProjects() {
