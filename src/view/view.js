@@ -28,6 +28,11 @@ export function renderProject() {
     sideBar.innerHTML= "";
     projects.forEach(item => {
         const projectWrapper = document.createElement("div");
+
+        if (item.id === getActiveProject()?.id) {
+            projectWrapper.classList.add("active-project");
+        }
+        
         
         const title = document.createElement("h2");
         title.textContent = item.title;
@@ -59,21 +64,15 @@ export function renderTask() {
     
 
     task.forEach(item => {
+        
         const wrapper = document.createElement("div");
         wrapper.classList.add("wrapper");
+        wrapper.dataset.priority = item.priority;
         wrapper.dataset.id = item.id;
         const title = document.createElement("h3")
         title.textContent = item.title;
-        const id = document.createElement("p")
-        id.textContent = item.id;
-        const projectId = document.createElement("p")
-        projectId.textContent = item.projectId;
-        const desc = document.createElement("p");
-        desc.textContent = item.desc;
         const dueDate = document.createElement("p");
         dueDate.textContent = formatDueDate(item.dueDate);
-        const priority = document.createElement("p")
-        priority.textContent = item.priority;
         const isCompleted = document.createElement("input");
         isCompleted.type = "checkbox";
         isCompleted.dataset.id = item.id;
@@ -81,11 +80,9 @@ export function renderTask() {
         isCompleted.value = "is-completed";
         isCompleted.name = "is-completed";
         isCompleted.classList.add("toggle-complete");
-        const isCompletedLabel = document.createElement("label");
-        isCompletedLabel.textContent = item.isCompleted ? "Completed" : "In progress"; 
-        isCompletedLabel.htmlFor = item.id;
-        const createdAt = document.createElement("p");
-        createdAt.textContent = formatCreatedAt(item.createdAt);
+        const taskCompletedLabel = document.createElement("label");
+        taskCompletedLabel.textContent = item.isCompleted ? "Completed" : "In progress"; 
+        taskCompletedLabel.htmlFor = item.id;
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "Delete";
         deleteBtn.dataset.id = item.id;
@@ -94,15 +91,12 @@ export function renderTask() {
 
 
 
+
+
         wrapper.appendChild(title);
-        wrapper.appendChild(id);
-        wrapper.appendChild(projectId);
-        wrapper.appendChild(desc);
         wrapper.appendChild(dueDate);
-        wrapper.appendChild(priority);
         wrapper.appendChild(isCompleted);
-        wrapper.appendChild(isCompletedLabel);
-        wrapper.appendChild(createdAt);
+        wrapper.appendChild(taskCompletedLabel);
         wrapper.appendChild(deleteBtn);
 
         mainContent.appendChild(wrapper);
