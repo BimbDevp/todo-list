@@ -1,8 +1,8 @@
 import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
-import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete } from "../model/appState.js";
-import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color, sideBar } from "../view/view.js"
+import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete, editTask, tasks } from "../model/appState.js";
+import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm} from "../view/view.js"
 
 
 
@@ -53,15 +53,28 @@ export function handleAddProject(title, color){
 
 export function bindEvents() {
     createTaskBtn.addEventListener("click", () => {
+        editingTaskId = null
         taskDialog.showModal();
     });
 
     taskSubmit.addEventListener("click", (e) => {
         e.preventDefault();
-        handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked)
+
+        if (editingTaskId) {
+            handleEditTask(editingTaskId, {title: title.value, desc: desc.value, dueDate: dueDate.value, priority: priority.value, isCompleted: isCompleted.checked});
+        
+        } else {
+            handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked);
+        }
+
 
         taskDialog.close();
+        taskForm.reset();
     });
+
+    taskCloseBtn.addEventListener("click", () => {
+        taskDialog.close();
+    })
 
     mainContent.addEventListener("click", (e) => {
         if (!e.target.classList.contains("delete-btn")) return;
@@ -78,7 +91,8 @@ export function bindEvents() {
         handleAddProject(projectTitle.value, color.value);
 
         projectDialog.close();
-    });
+        projectForm.reset();
+    })
 
     sideBar.addEventListener("click", (e) =>{
         if (!e.target.classList.contains("project-delete")) return;
@@ -103,12 +117,23 @@ export function bindEvents() {
         const id = e.target.dataset.id;
         handleToggleComplete(id);
     });
+
+    mainContent.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-btn")) return;
+        if (e.target.classList.contains("toggle-complete")) return;
+
+        const wrapper = e.target.closest(".wrapper");
+        if (!wrapper) return;
+
+        const id = wrapper.dataset.id;
+        openEditDialog(id);
+    })
 }
 
 
 export function handleDeleteTask(id) {
     deleteTask(id);
-    saveData("tasks", getTasks())
+    saveData("tasks", getTasks());
     renderTask();
 }
 
@@ -123,4 +148,19 @@ export function handleToggleComplete(id) {
     toggleComplete(id)
     saveData("tasks", getTasks());
     renderTask();
+}
+
+export function handleEditTask(id, updateFields) {
+    editTask(id, updateFields);
+    saveData("tasks", getTasks());
+    renderTask();
+}
+
+let editingTaskId = null;
+
+function openEditDialog(taskId) {
+    const task = tasks.find(item => item.id === taskId);
+    fillEditForm(task);
+    editingTaskId = taskId;
+    taskDialog.showModal();
 }

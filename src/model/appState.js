@@ -1,5 +1,5 @@
 let projects = [];
-let tasks = [];
+ export let tasks = [];
 
 
 export function getProjects() {
@@ -30,7 +30,13 @@ export function deleteProject(id) {
     projects = projects.filter(item => item.id !== id);
     tasks = tasks.filter(item => item.projectId !== id);
 
-    setActiveProject(getProjects()[0]);
+    const currentProject = getActiveProject();
+    if (currentProject.id !== id) {
+        setActiveProject(currentProject)
+    } else {
+        setActiveProject(getProjects()[0]);
+    }
+    
 }
 
 let activeProject = null;
@@ -46,4 +52,9 @@ export function getActiveProject() {
 export function toggleComplete(id) {
     const target = tasks.find(item => item.id === id);
     return target.isCompleted = !target.isCompleted;
+}
+
+export function editTask(id, updateFields) {
+    const target = tasks.find(item => item.id === id);
+    Object.assign(target, updateFields);
 }

@@ -36,7 +36,9 @@ export function renderTask() {
     
 
     task.forEach(item => {
-        const wraper = document.createElement("div");
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("wrapper");
+        wrapper.dataset.id = item.id;
         const title = document.createElement("h3")
         title.textContent = item.title;
         const id = document.createElement("p")
@@ -69,22 +71,34 @@ export function renderTask() {
 
 
 
-        wraper.appendChild(title);
-        wraper.appendChild(id);
-        wraper.appendChild(projectId);
-        wraper.appendChild(desc);
-        wraper.appendChild(dueDate);
-        wraper.appendChild(priority);
-        wraper.appendChild(isCompleted);
-        wraper.appendChild(isCompletedLabel);
-        wraper.appendChild(createdAt);
-        wraper.appendChild(deleteBtn);
+        wrapper.appendChild(title);
+        wrapper.appendChild(id);
+        wrapper.appendChild(projectId);
+        wrapper.appendChild(desc);
+        wrapper.appendChild(dueDate);
+        wrapper.appendChild(priority);
+        wrapper.appendChild(isCompleted);
+        wrapper.appendChild(isCompletedLabel);
+        wrapper.appendChild(createdAt);
+        wrapper.appendChild(deleteBtn);
 
-        mainContent.appendChild(wraper);
+        mainContent.appendChild(wrapper);
 
     })
 }
 
+export function fillEditForm(task) {
+    title.value = task.title;
+    desc.value = task.desc;
+    dueDate.value = task.dueDate;
+    priority.value = task.priority;
+    isCompleted.checked = task.isCompleted;
+    isCompletedLabel.textContent = task.isCompleted ? "Complete" : "In progress";
+}
+
+const isCompletedLabel = document.querySelector(".is-completed-label");
+const projectForm = document.querySelector(".project-form");
+const taskForm = document.querySelector(".task-form");
 const mainContent = document.querySelector(".main-content");
 const sideBar = document.querySelector(".sidebar");
 const taskDialog = document.querySelector(".task-dialog");
@@ -100,7 +114,9 @@ const projectTitle = document.querySelector("#project-title");
 const color = document.querySelector("#color");
 const projectSubmit = document.querySelector(".project-submit");
 const createProjectBtn = document.querySelector(".create-project");
+const taskCloseBtn = document.querySelector(".task-close");
 
 
 
-export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn, sideBar };
+
+export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn, sideBar, projectForm, taskForm, taskCloseBtn };

@@ -12,7 +12,7 @@
     <div class="main-content"></div>
 
     <dialog class="task-dialog">
-        <form>
+        <form class="task-form">
             <label for="title">Title:</label>
             <input type="text" name="title" id="title">
 
@@ -30,40 +30,21 @@
             </select>
 
             <input type="checkbox" name="is-completed" id="is-completed">
-            <label for="is-completed">progress</label>
+            <label for="is-completed" class="is-completed-label"></label>
 
-            <button class="task-submit">Create task</button>
-        </form>
-    </dialog>
+            <div class="closeBtn-task">
+                <button type="button" class="task-close">X</button>
+            </div>
 
-    <dialog class="task-edit">
-        <form>
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title">
-
-            <label for="desc">Description:</label>
-            <input type="text" name="desc" id="desc">
-
-            <label for="due-date">Due date:</label>
-            <input type="date" name="due-date" id="due-date">
-
-            <label for="priority">Priority:</label>
-            <select name="priority" id="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-
-            <input type="checkbox" name="is-completed" id="is-completed">
-            <label for="is-completed">progress</label>
-
-            <button class="task-submit">Create task</button>
+            <div class="submitBtn-task">
+                <button type="submit" class="task-submit">Submit</button>
+            </div>
         </form>
     </dialog>
 
 
     <dialog class="project-dialog">
-        <form>
+        <form class="project-form">
             <label for="project-title">Title:</label>
             <input type="text" name="project-title" id="project-title">
 
