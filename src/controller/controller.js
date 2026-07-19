@@ -26,9 +26,10 @@ export function initApp() {
 
     if (loadTask) {
         loadTask.forEach(item => addTask(item));
+
     }
 
-    refreshTaskView();
+    refreshProjectView();
 }
 
 export function handleAddTask(title, desc, dueDate, priority, isCompleted) {

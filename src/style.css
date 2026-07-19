@@ -16,3 +16,129 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: var(--radius);
+    padding: 4px 8px;
+    transition: background 0.2s;
+}
+
+.sidebar > div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.project-title {
+    font-size: 1rem;
+    margin: 0;
+    padding: 6px 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.active-project {
+    background:white !important ;
+}
+
+.active-project .project-title {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.active-project .project-delete {
+    color: var(--color-primary);
+    opacity: 0.6;
+}
+
+.project-delete {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+.project-delete:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.main-content {
+    flex: 1;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.wrapper {
+    background: var(--color-card);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-left: 6px solid var(--color-low);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.wrapper:hover {
+    transform: translateY(-2px);
+}
+
+.wrapper[data-priority="high"] {
+    border-left-color: var(--color-high);
+}
+
+.wrapper[data-priority="medium"] {
+    border-left-color: var(--color-medium);
+}
+
+.wrapper[data-priority="low"] {
+    border-left-color: var(--color-low);
+}
+
+.wrapper h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    flex: 1;
+}
+
+
+.wrapper p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6b6b7a;
+    white-space: nowrap;
+}
+
+.wrapper label {
+    font-size: 0.8rem;
+    color: #6b6b7a;    
+    white-space: nowrap;
+}
+
+
+

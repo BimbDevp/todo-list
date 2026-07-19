@@ -8,9 +8,11 @@ export function formatCreatedAt(createdAtString) {
 }
 
 
-export function formatDueDate(dueDateString) {
+export function formatDueDate(dueDateString) {  
+    if (!dueDateString) return "No due date"
+
     const dueDateObj = new Date(dueDateString);
-    const formatted = format(dueDateObj, "dd MMMM yyyy")
+    const formatted = format(dueDateObj, "dd MMMM yyyy");
     const dayLeft = differenceInDays(dueDateObj, new Date());
 
     if (isPast(dueDateObj)) {
