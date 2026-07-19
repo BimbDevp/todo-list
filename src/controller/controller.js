@@ -1,7 +1,7 @@
 import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
-import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject } from "../model/appState.js";
+import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete } from "../model/appState.js";
 import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color, sideBar } from "../view/view.js"
 
 
@@ -9,7 +9,7 @@ import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted,
 
 export function initApp() {
     const loadProject = loadData("projects");
-    const defaultProject = createProject("Default", "blue");
+    const defaultProject = createProject("Inbox", "blue");
     defaultProject.isDefault = true;
     const loadTask = loadData("tasks");
     if (loadProject && loadProject.length > 0) {
@@ -30,7 +30,6 @@ export function initApp() {
     }
 
     renderProject();
-    console.log(defaultProject);
 }
 
 export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
@@ -72,21 +71,21 @@ export function bindEvents() {
 
     createProjectBtn.addEventListener("click", () => {
         projectDialog.showModal();
-    })
+    });
 
     projectSubmit.addEventListener("click", (e) => {
         e.preventDefault();
         handleAddProject(projectTitle.value, color.value);
 
         projectDialog.close();
-    })
+    });
 
     sideBar.addEventListener("click", (e) =>{
         if (!e.target.classList.contains("project-delete")) return;
         const id = e.target.dataset.id;
      
         handleDeleteProject(id);
-    })
+    });
 
     sideBar.addEventListener("click", (e) => {
         if (!e.target.classList.contains("project-title")) return;
@@ -97,7 +96,13 @@ export function bindEvents() {
         setActiveProject(project);
 
         renderTask();
-    })
+    });
+
+    mainContent.addEventListener("click", (e) => {
+        if (!e.target.classList.contains("toggle-complete")) return;
+        const id = e.target.dataset.id;
+        handleToggleComplete(id);
+    });
 }
 
 
@@ -112,4 +117,10 @@ export function handleDeleteProject(id) {
     saveData("projects", getProjects());
     saveData("tasks", getTasks());
     renderProject();
+}
+
+export function handleToggleComplete(id) {
+    toggleComplete(id)
+    saveData("tasks", getTasks());
+    renderTask();
 }

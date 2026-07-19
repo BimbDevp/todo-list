@@ -49,8 +49,16 @@ export function renderTask() {
         dueDate.textContent = item.dueDate;
         const priority = document.createElement("p")
         priority.textContent = item.priority;
-        const isCompleted = document.createElement("p");
-        isCompleted.textContent = item.isCompleted;
+        const isCompleted = document.createElement("input");
+        isCompleted.type = "checkbox";
+        isCompleted.dataset.id = item.id;
+        isCompleted.checked = item.isCompleted;
+        isCompleted.value = "is-completed";
+        isCompleted.name = "is-completed";
+        isCompleted.classList.add("toggle-complete");
+        const isCompletedLabel = document.createElement("label");
+        isCompletedLabel.textContent = item.isCompleted ? "Completed" : "In progress"; 
+        isCompletedLabel.htmlFor = item.id;
         const createdAt = document.createElement("p");
         createdAt.textContent = item.createdAt;
         const deleteBtn = document.createElement("button");
@@ -68,6 +76,7 @@ export function renderTask() {
         wraper.appendChild(dueDate);
         wraper.appendChild(priority);
         wraper.appendChild(isCompleted);
+        wraper.appendChild(isCompletedLabel);
         wraper.appendChild(createdAt);
         wraper.appendChild(deleteBtn);
 

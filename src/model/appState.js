@@ -1,5 +1,3 @@
-import { isCompleted, taskSubmit } from "../view/view";
-
 let projects = [];
 let tasks = [];
 
@@ -27,7 +25,7 @@ export function deleteTask(id) {
 export function deleteProject(id) {
     const targetProject = projects.find(item => item.id === id);
     
-    if (projectDefault.isDefault === true) return;
+    if (targetProject.isDefault === true) return;
 
     projects = projects.filter(item => item.id !== id);
     tasks = tasks.filter(item => item.projectId !== id);
@@ -47,6 +45,5 @@ export function getActiveProject() {
 
 export function toggleComplete(id) {
     const target = tasks.find(item => item.id === id);
-
     return target.isCompleted = !target.isCompleted;
 }
