@@ -1,4 +1,3 @@
-import { getProjects, getTasks, getActiveProject} from "../model/appState.js";
 import { format, differenceInDays, isPast } from "date-fns";
 
 export function formatCreatedAt(createdAtString) {
@@ -23,13 +22,12 @@ export function formatDueDate(dueDateString) {
     }
 }
 
-export function renderProject() {
-    const projects = getProjects();
+export function renderProject(projects, activeProject) {
     sideBar.innerHTML= "";
     projects.forEach(item => {
         const projectWrapper = document.createElement("div");
 
-        if (item.id === getActiveProject()?.id) {
+        if (item.id === activeProject?.id) {
             projectWrapper.classList.add("active-project");
         }
         
@@ -53,17 +51,16 @@ export function renderProject() {
 
 
  
-export function renderTask() {
-    const activeProject = getActiveProject();
-    const allTask = getTasks();
+export function renderTask(tasks, activeProjectId) {
+        
+    const filteredTask = activeProjectId
+        ? tasks.filter(item => item.projectId === activeProjectId)
+        : tasks;
 
-    const task = activeProject 
-        ? allTask.filter(item => item.projectId === activeProject.id)
-        : allTask;
     mainContent.innerHTML = "";
     
 
-    task.forEach(item => {
+    filteredTask.forEach(item => {
         
         const wrapper = document.createElement("div");
         wrapper.classList.add("wrapper");

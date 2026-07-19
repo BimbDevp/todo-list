@@ -26,10 +26,9 @@ export function initApp() {
 
     if (loadTask) {
         loadTask.forEach(item => addTask(item));
-        renderTask();
     }
 
-    renderProject();
+    refreshTaskView();
 }
 
 export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
@@ -39,7 +38,7 @@ export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
     addTask(newTask);
     saveData("tasks", getTasks());
 
-    renderTask();
+    refreshTaskView();
 }
 
 export function handleAddProject(title, color){
@@ -48,7 +47,7 @@ export function handleAddProject(title, color){
     setActiveProject(newProject);
     saveData("projects", getProjects());
 
-    renderProject();
+    refreshProjectView();
 }
 
 export function bindEvents() {
@@ -109,7 +108,7 @@ export function bindEvents() {
         const project = getProjects().find(item => item.id === id);
         setActiveProject(project);
 
-        renderTask();
+        refreshTaskView();
     });
 
     mainContent.addEventListener("click", (e) => {
@@ -134,26 +133,26 @@ export function bindEvents() {
 export function handleDeleteTask(id) {
     deleteTask(id);
     saveData("tasks", getTasks());
-    renderTask();
+    refreshTaskView();
 }
 
 export function handleDeleteProject(id) {
     deleteProject(id);
     saveData("projects", getProjects());
     saveData("tasks", getTasks());
-    renderProject();
+    refreshProjectView();
 }
 
 export function handleToggleComplete(id) {
     toggleComplete(id)
     saveData("tasks", getTasks());
-    renderTask();
+    refreshTaskView();
 }
 
 export function handleEditTask(id, updateFields) {
     editTask(id, updateFields);
     saveData("tasks", getTasks());
-    renderTask();
+    refreshTaskView()
 }
 
 let editingTaskId = null;
@@ -163,4 +162,14 @@ function openEditDialog(taskId) {
     fillEditForm(task);
     editingTaskId = taskId;
     taskDialog.showModal();
+}
+
+function refreshTaskView() {
+    const activeProject = getActiveProject();
+    renderTask(getTasks(), activeProject ? activeProject.id : null);
+
+}
+
+function refreshProjectView() {
+    renderProject(getProjects(), getActiveProject());
 }

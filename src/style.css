@@ -1,0 +1,18 @@
+:root {
+    --color-bg: #fef9f3;
+    --color-primary: #6c5ce7;
+    --color-primary-dark: #5849c2;
+    --color-high: #ff6b6b;
+    --color-medium: #ffa94d;
+    --color-low: #51cf66;
+    --color-text: #2d2d3a;
+    --color-card: #fff;
+    --radius: 16px;
+    font-family: "segoe UI", system-ui, sans-serif;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
