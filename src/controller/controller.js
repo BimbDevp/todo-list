@@ -2,14 +2,14 @@ import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
 import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete, editTask } from "../model/appState.js";
-import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, color, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm} from "../view/view.js"
+import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm, projectCloseBtn} from "../view/view.js"
 
 
 
 
 export function initApp() {
     const loadProject = loadData("projects");
-    const defaultProject = createProject("Inbox", "blue");
+    const defaultProject = createProject("Inbox");
     defaultProject.isDefault = true;
     const loadTask = loadData("tasks");
     if (loadProject && loadProject.length > 0) {
@@ -29,7 +29,7 @@ export function initApp() {
 
     }
 
-    refreshProjectView();
+    refreshAll();
 }
 
 export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
@@ -39,16 +39,16 @@ export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
     addTask(newTask);
     saveData("tasks", getTasks());
 
-    refreshTaskView();
+    refreshAll();
 }
 
-export function handleAddProject(title, color){
-    const newProject = createProject(title, color);
+export function handleAddProject(title){
+    const newProject = createProject(title);
     addProject(newProject);
     setActiveProject(newProject);
     saveData("projects", getProjects());
 
-    refreshProjectView();
+    refreshAll();
 }
 
 export function bindEvents() {
@@ -74,7 +74,15 @@ export function bindEvents() {
 
     taskCloseBtn.addEventListener("click", () => {
         taskDialog.close();
-    })
+
+        editingTaskId = null;
+        taskForm.reset();
+    });
+
+    projectCloseBtn.addEventListener("click", () => {
+        projectDialog.close();
+        projectForm.reset();
+    });
 
     mainContent.addEventListener("click", (e) => {
         if (!e.target.classList.contains("delete-btn")) return;
@@ -88,7 +96,7 @@ export function bindEvents() {
 
     projectSubmit.addEventListener("click", (e) => {
         e.preventDefault();
-        handleAddProject(projectTitle.value, color.value);
+        handleAddProject(projectTitle.value);
 
         projectDialog.close();
         projectForm.reset();
@@ -109,7 +117,7 @@ export function bindEvents() {
         const project = getProjects().find(item => item.id === id);
         setActiveProject(project);
 
-        refreshTaskView();
+        refreshAll();
     });
 
     mainContent.addEventListener("click", (e) => {
@@ -134,26 +142,27 @@ export function bindEvents() {
 export function handleDeleteTask(id) {
     deleteTask(id);
     saveData("tasks", getTasks());
-    refreshTaskView();
+    refreshAll();
 }
 
 export function handleDeleteProject(id) {
     deleteProject(id);
     saveData("projects", getProjects());
     saveData("tasks", getTasks());
-    refreshProjectView();
+
+    refreshAll();
 }
 
 export function handleToggleComplete(id) {
     toggleComplete(id)
     saveData("tasks", getTasks());
-    refreshTaskView();
+    refreshAll();
 }
 
 export function handleEditTask(id, updateFields) {
     editTask(id, updateFields);
     saveData("tasks", getTasks());
-    refreshTaskView()
+    refreshAll();
 }
 
 let editingTaskId = null;
@@ -173,4 +182,9 @@ function refreshTaskView() {
 
 function refreshProjectView() {
     renderProject(getProjects(), getActiveProject());
+}
+
+function refreshAll() {
+    refreshTaskView();
+    refreshProjectView();
 }

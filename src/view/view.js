@@ -127,12 +127,12 @@ const taskSubmit = document.querySelector(".task-submit")
 const createTaskBtn = document.querySelector(".create-task");
 const projectDialog = document.querySelector(".project-dialog");
 const projectTitle = document.querySelector("#project-title");
-const color = document.querySelector("#color");
 const projectSubmit = document.querySelector(".project-submit");
 const createProjectBtn = document.querySelector(".create-project");
 const taskCloseBtn = document.querySelector(".task-close");
+const projectCloseBtn = document.querySelector(".project-close")
 
 
 
 
-export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, color, projectSubmit, createProjectBtn, sideBar, projectForm, taskForm, taskCloseBtn };
+export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, projectSubmit, createProjectBtn, sideBar, projectForm, taskForm, taskCloseBtn, projectCloseBtn };
