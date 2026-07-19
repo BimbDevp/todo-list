@@ -91,6 +91,22 @@ body {
     gap: 16px;
 }
 
+.main-content p {
+    margin: auto;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #6b6b7a;
+}
+
+.main-content h2 {
+    background: var(--color-primary);
+    padding: 12px;
+    max-width: 150px;
+    color: white;
+    text-align: center;
+    border-radius: var(--radius);
+}
+
 .wrapper {
     background: var(--color-card);
     border-radius: var(--radius);
@@ -218,12 +234,18 @@ dialog label {
     color: #555;
 }
 
-dialog input,
+dialog input:not([type="checkbox"]),
 dialog select {
     padding: 8px 12px;
     border-radius: 10px;
     border: 1px solid #ddd;
     font-size: 0.9rem;
+}
+
+.checkbox-container {
+    display: flex;
+    margin-top: 4px;
+    align-items: center;
 }
 
 .is-completed-label {

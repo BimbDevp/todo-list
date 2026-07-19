@@ -176,7 +176,7 @@ function openEditDialog(taskId) {
 
 function refreshTaskView() {
     const activeProject = getActiveProject();
-    renderTask(getTasks(), activeProject ? activeProject.id : null);
+    renderTask(getTasks(), activeProject ? activeProject : null);
 
 }
 

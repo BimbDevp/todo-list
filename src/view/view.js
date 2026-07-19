@@ -53,15 +53,28 @@ export function renderProject(projects, activeProject) {
 
 
  
-export function renderTask(tasks, activeProjectId) {
+export function renderTask(tasks, activeProject) {
         
-    const filteredTask = activeProjectId
-        ? tasks.filter(item => item.projectId === activeProjectId)
+    const filteredTask = activeProject
+        ? tasks.filter(item => item.projectId === activeProject.id)
         : tasks;
 
-    mainContent.innerHTML = "";
     
+    mainContent.innerHTML = "";
 
+    if (activeProject) {
+        const heading = document.createElement("h2");
+        heading.textContent = activeProject.title;
+        mainContent.appendChild(heading);
+    }
+
+    if (filteredTask.length === 0) {
+        const para = document.createElement("p");
+        para.textContent = "There are no tasks for this project"
+        mainContent.appendChild(para);
+    }
+    
+    
     filteredTask.forEach(item => {
         
         const wrapper = document.createElement("div");
