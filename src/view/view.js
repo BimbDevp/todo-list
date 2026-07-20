@@ -117,12 +117,14 @@ export function renderTask(tasks, activeProject) {
 }
 
 export function fillEditForm(task) {
-    title.value = task.title;
-    desc.value = task.desc;
-    dueDate.value = task.dueDate;
-    priority.value = task.priority;
-    isCompleted.checked = task.isCompleted;
+    titleInput.value = task.title;
+    descInput.value = task.desc;
+    dueDateInput.value = task.dueDate;
+    priorityInput.value = task.priority;
+    isCompletedInput.checked = task.isCompleted;
     isCompletedLabel.textContent = task.isCompleted ? "Complete" : "In progress";
+    notesInput.value = task.notes;
+    checklistInput.value = task.checklist;
 }
 
 const isCompletedLabel = document.querySelector(".is-completed-label");
@@ -131,11 +133,11 @@ const taskForm = document.querySelector(".task-form");
 const mainContent = document.querySelector(".main-content");
 const sideBar = document.querySelector(".sidebar");
 const taskDialog = document.querySelector(".task-dialog");
-const title = document.querySelector("#title")
-const desc = document.querySelector("#desc");
-const dueDate = document.querySelector("#due-date");
-const priority = document.querySelector("#priority")
-const isCompleted = document.querySelector("#is-completed");
+const titleInput = document.querySelector("#title")
+const descInput = document.querySelector("#desc");
+const dueDateInput = document.querySelector("#due-date");
+const priorityInput = document.querySelector("#priority")
+const isCompletedInput = document.querySelector("#is-completed");
 const taskSubmit = document.querySelector(".task-submit")
 const createTaskBtn = document.querySelector(".create-task");
 const projectDialog = document.querySelector(".project-dialog");
@@ -144,8 +146,10 @@ const projectSubmit = document.querySelector(".project-submit");
 const createProjectBtn = document.querySelector(".create-project");
 const taskCloseBtn = document.querySelector(".task-close");
 const projectCloseBtn = document.querySelector(".project-close")
+const notesInput = document.querySelector("#notes");
+const checklistInput = document.querySelector("#checklist");
 
 
 
 
-export { taskDialog, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, projectSubmit, createProjectBtn, sideBar, projectForm, taskForm, taskCloseBtn, projectCloseBtn };
+export { taskDialog, titleInput, descInput, dueDateInput, priorityInput, isCompletedInput, taskSubmit, createTaskBtn, mainContent, projectDialog, projectTitle, projectSubmit, createProjectBtn, sideBar, projectForm, taskForm, taskCloseBtn, projectCloseBtn, notesInput, checklistInput };

@@ -2,7 +2,7 @@ import createTask from "../model/task.js";
 import createProject from "../model/project.js";
 import { saveData, loadData } from "../model/storage.js";
 import { getProjects, getTasks, addProject, addTask, deleteTask, deleteProject, getActiveProject, setActiveProject, toggleComplete, editTask } from "../model/appState.js";
-import { renderProject, renderTask, title, desc, dueDate, priority, isCompleted, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm, projectCloseBtn} from "../view/view.js"
+import { renderProject, renderTask, titleInput, descInput, dueDateInput, priorityInput, isCompletedInput, taskSubmit, createTaskBtn, mainContent, taskDialog, projectDialog, createProjectBtn, projectSubmit, projectTitle, sideBar, projectForm, taskForm, taskCloseBtn, isCompletedLabel, fillEditForm, projectCloseBtn, notesInput, checklistInput} from "../view/view.js"
 
 
 
@@ -32,9 +32,9 @@ export function initApp() {
     refreshAll();
 }
 
-export function handleAddTask(title, desc, dueDate, priority, isCompleted) {
+export function handleAddTask(title, desc, dueDate, priority, isCompleted, notes, checklist) {
     const activeProject = getActiveProject();
-    const newTask = createTask(title, desc, dueDate, priority, isCompleted);
+    const newTask = createTask(title, desc, dueDate, priority, isCompleted, notes, checklist);
     newTask.projectId = activeProject ? activeProject.id : null;
     addTask(newTask);
     saveData("tasks", getTasks());
@@ -61,10 +61,10 @@ export function bindEvents() {
         e.preventDefault();
 
         if (editingTaskId) {
-            handleEditTask(editingTaskId, {title: title.value, desc: desc.value, dueDate: dueDate.value, priority: priority.value, isCompleted: isCompleted.checked});
+            handleEditTask(editingTaskId, {title: titleInput.value, desc: descInput.value, dueDate: dueDateInput.value, priority: priorityInput.value, isCompleted: isCompletedInput.checked, notes: notesInput.value, checklist: checklistInput.value.split(",")});
         
         } else {
-            handleAddTask(title.value, desc.value, dueDate.value, priority.value, isCompleted.checked);
+            handleAddTask(titleInput.value, descInput.value, dueDateInput.value, priorityInput.value, isCompletedInput.checked, notesInput.value, checklistInput.value.split(","));
         }
 
 

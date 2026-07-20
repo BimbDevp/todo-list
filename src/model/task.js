@@ -1,6 +1,6 @@
 
 
-export default function createTask(title, desc, dueDate, priority, isCompleted) {
+export default function createTask(title, desc, dueDate, priority, isCompleted, notes, checklist) {
    return { 
     id: crypto.randomUUID(),
     projectId: null,
@@ -9,6 +9,8 @@ export default function createTask(title, desc, dueDate, priority, isCompleted) 
     dueDate: dueDate,
     priority: priority,
     isCompleted: isCompleted,
+    notes: notes,
+    checklist: checklist || [],
     createdAt: new Date().toISOString(),
    };
 }
