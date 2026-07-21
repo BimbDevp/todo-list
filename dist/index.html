@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <div class="sidebar"></div>
+    <div class="main-content"></div>
+
+    <dialog class="task-dialog">
+        <form class="task-form">
+            <div class="closeBtn">
+                <button type="button" class="task-close">X</button>
+            </div>
+
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title">
+
+            <label for="desc">Description:</label>
+            <input type="text" name="desc" id="desc">
+
+            <label for="due-date">Due date:</label>
+            <input type="date" name="due-date" id="due-date" required>
+
+            <label for="priority">Priority:</label>
+            <select name="priority" id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <div class="checkbox-container">
+                <input type="checkbox" name="is-completed" id="is-completed">
+                <label for="is-completed" class="is-completed-label">In progress</label>
+            </div>
+
+            <label for="notes">Notes:</label>
+            <textarea name="notes" id="notes"></textarea>
+
+            <label for="checklist">Checklist:</label>
+            <input type="text" name="checklist" id="checklist">
+
+            <div class="submitBtn">
+                <button type="submit" class="task-submit">Submit</button>
+            </div>
+        </form>
+    </dialog>
+
+
+    <dialog class="project-dialog">
+        <form class="project-form">
+            <div class="closeBtn">
+                <button type="button" class="project-close">X</button>
+            </div>
+
+            <label for="project-title">Title:</label>
+            <input type="text" name="project-title" id="project-title">
+
+            <div class="submitBtn">
+                <button class="project-submit">Create project</button>
+            </div>
+        </form>
+    </dialog>
+
+    <button class="create-project">Add project</button>
+    <button class="create-task">Add task</button>
+</body>
+
+</html>
